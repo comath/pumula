@@ -1,0 +1,4 @@
+Database:
+  ☐ Fix points to be precision 8, with 2 past the decimal point
+  ☐ write validation to ensure each assignment attempt has the right number of problem attempts
+  ☐ Create tags table and fix the tag list to be a table-join thing

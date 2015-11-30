@@ -11,17 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20151128201441) do
+ActiveRecord::Schema.define(version: 20151128205603) do
 
   create_table "assignments", force: :cascade do |t|
-    t.string   "type"
     t.string   "name"
     t.integer  "course_instance_id"
     t.datetime "due_date"
-    t.datetime "act_due_date"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "nature"
   end
 
   add_index "assignments", ["course_instance_id"], name: "index_assignments_on_course_instance_id"
@@ -88,6 +86,7 @@ ActiveRecord::Schema.define(version: 20151128201441) do
     t.integer  "course_instance_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "name"
   end
 
   add_index "sections", ["course_instance_id"], name: "index_sections_on_course_instance_id"
@@ -105,12 +104,13 @@ ActiveRecord::Schema.define(version: 20151128201441) do
   add_index "student_attempts", ["student_id"], name: "index_student_attempts_on_student_id"
 
   create_table "students", force: :cascade do |t|
-    t.integer  "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "section_id"
+    t.string   "name"
   end
 
-  add_index "students", ["profile_id"], name: "index_students_on_profile_id"
+  add_index "students", ["section_id"], name: "index_students_on_section_id"
 
   create_table "ta", force: :cascade do |t|
     t.integer  "profile_id"
