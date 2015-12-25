@@ -1,0 +1,35 @@
+<div class="floating-menu">
+
+<table>
+	<tr>
+		<td><%= link_to "Create Assessment", new_course_instance_assessment_path(@course_instance) %></td>
+		<td>Sections:</td>
+		<% @course_instance.sections.all.each do |sect| %>
+			<td><%= link_to sect.name, course_instance_section_path(@course_instance, sect) %></td>
+		<% end %>
+
+	</tr>
+</table>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+	<tr> 
+		<td>Student</td>
+		<% @course_instance.assessments.each do |assessment| %>
+			<td><%= assessment.name %> </td>
+		<% end %>
+	</tr>
+	<% @course_instance.students.each do |student| %>
+			<tr class=<%= cycle('even', 'odd') %>>
+			<td><%= student.name %></td>
+			<% @course_instance.assessments.each do |assessment| %>
+				<td><%= link_to student.get_latest_attempt(assessment).get_total, course_instance_section_student_new_attempt_path(@course_instance ,student.section, student, assessment) %></td>
+			<% end %>
+			</tr>
+		<% end %>
+	
+</table>
+
+<%= link_to 'Back', course_instances_path %>

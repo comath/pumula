@@ -10,11 +10,6 @@
 tags = %w{differentiation intergration power-rule quotient-rule trigenometric-intergration fields algebra limits limit-sum limit-product}
 
 
-Course.destroy_all
-CourseInstance.destroy_all
-Section.destroy_all
-Assignment.destroy_all
-Problem.destroy_all
 
 
 tag_list = ""
@@ -37,16 +32,16 @@ ran = Random.new
 
 5.times do |index|
 	date = now + ran.rand(1...60)
-	course_instance.assignments.create!(due_date: date, nature: "homework", name: "Homework #{index}" )
+	course_instance.assessments.create!(due_date: date, nature: "homework", name: "Homework #{index}" )
 end
 
 2.times do |index|
 	date = now + ran.rand(30...65)
-	course_instance.assignments.create!(due_date: date, nature: "exam", name: "Exam #{index}" )
+	course_instance.assessments.create!(due_date: date, nature: "exam", name: "Exam #{index}" )
 end
 
 
-homeworks = Assignment.where(nature: "homework")
+homeworks = Assessment.where(nature: "homework")
 homeworks.each do |hw|
 	5.times do |n| 
 		tagsstr = ""
@@ -57,7 +52,7 @@ homeworks.each do |hw|
 	hw.problems.create!(name: "Completion", points: 5, tags: "")
 end
 
-exams = Assignment.where(nature: "exam")
+exams = Assessment.where(nature: "exam")
 exams.each do |exam|
 	10.times do |n| 
 		tagsstr = ""
@@ -69,8 +64,8 @@ exams.each do |exam|
 end
 
 Student.all.each do |student|
-	Assignment.all.each do |homework|
-		curatt = student.student_attempts.create!(assignment_id: homework.id)
+	Assessment.all.each do |homework|
+		curatt = student.student_attempts.create!(assessment_id: homework.id)
 		homework.problems.each do |problem|
 			max = problem.points
 			score = ran.rand(0...max)

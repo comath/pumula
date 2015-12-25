@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  root to: "course_instances#index"
+  resources :course_instances do
+
+    resources :sections do
+      resources :students do
+          get "sa/:assessment_id/new", to: "student_attempts#new", as: "new_attempt"
+          get "sa/:assessment_id/:student_attempt_id", to: "student_attempts#show", as: "show_attempt"
+          get "sa/:assessment_id/history", to: "student_attempts#index", as: "attempts"
+          patch "sa/:assessment_id/:student_attempt_id/new", to: "student_attempts#update", as: "update_attempt"
+        end
+    end
+    resources :assessments do
+      resources :problem
+    end
+  end
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

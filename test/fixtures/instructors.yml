@@ -1,7 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  profile_id: 
-
-two:
-  profile_id: 
+jim:
+   name: Jim Stacheff
+   course_instance: Linear Algebra
+Joe:
+   name: Joe Plumber
+   course_instance: Calculus 1

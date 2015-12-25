@@ -1,0 +1,21 @@
+<%= form_for(@student_attempt, url: course_instance_section_student_update_attempt_path(@course_instance ,@section, @student, @assessment, @student_attempt)) do |f| %>
+  <% if @student_attempt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_attempt.errors.count, "error") %> prohibited this student_attempt from being saved:</h2>
+
+      <ul>
+      <% @student_attempt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p><%= @assessment.name %></p>
+  <div class="actions">
+  
+  <%= f.fields_for :problem_attempts do |pa| %>
+    <p><%= pa.object.problem.name %>:<%= pa.number_field :score %> out of <%= pa.object.problem.points %> <%= pa.check_box :completed %></p>
+  <% end %>
+    <p><%= f.submit %></p>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module AssessmentWeightsHelper
+end

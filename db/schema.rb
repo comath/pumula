@@ -11,18 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128205603) do
+ActiveRecord::Schema.define(version: 20151225050459) do
 
-  create_table "assignments", force: :cascade do |t|
+  create_table "assessment_weights", force: :cascade do |t|
+    t.text     "name"
+    t.decimal  "weight",     precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  create_table "assessments", force: :cascade do |t|
     t.string   "name"
     t.integer  "course_instance_id"
     t.datetime "due_date"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "nature"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "assessment_weights_id"
   end
 
-  add_index "assignments", ["course_instance_id"], name: "index_assignments_on_course_instance_id"
+  add_index "assessments", ["assessment_weights_id"], name: "index_assessments_on_assessment_weights_id"
+  add_index "assessments", ["course_instance_id"], name: "index_assessments_on_course_instance_id"
 
   create_table "course_instances", force: :cascade do |t|
     t.string   "semester"
@@ -41,22 +49,22 @@ ActiveRecord::Schema.define(version: 20151128205603) do
   end
 
   create_table "instructors", force: :cascade do |t|
-    t.integer  "profile_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "course_instance_id"
+    t.string   "name"
   end
 
   add_index "instructors", ["course_instance_id"], name: "index_instructors_on_course_instance_id"
-  add_index "instructors", ["profile_id"], name: "index_instructors_on_profile_id"
 
   create_table "problem_attempts", force: :cascade do |t|
-    t.decimal  "score"
     t.text     "comment"
     t.integer  "student_attempt_id"
     t.integer  "problem_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.decimal  "score",              precision: 8, scale: 2
+    t.boolean  "completed"
   end
 
   add_index "problem_attempts", ["problem_id"], name: "index_problem_attempts_on_problem_id"
@@ -65,13 +73,13 @@ ActiveRecord::Schema.define(version: 20151128205603) do
   create_table "problems", force: :cascade do |t|
     t.string   "name"
     t.string   "tags"
-    t.decimal  "points"
-    t.integer  "assignment_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "assessment_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.decimal  "points",        precision: 8, scale: 2
   end
 
-  add_index "problems", ["assignment_id"], name: "index_problems_on_assignment_id"
+  add_index "problems", ["assessment_id"], name: "index_problems_on_assessment_id"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "fname"
@@ -95,12 +103,12 @@ ActiveRecord::Schema.define(version: 20151128205603) do
     t.datetime "hand_in"
     t.text     "comment"
     t.integer  "student_id"
-    t.integer  "assignment_id"
+    t.integer  "assessment_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "student_attempts", ["assignment_id"], name: "index_student_attempts_on_assignment_id"
+  add_index "student_attempts", ["assessment_id"], name: "index_student_attempts_on_assessment_id"
   add_index "student_attempts", ["student_id"], name: "index_student_attempts_on_student_id"
 
   create_table "students", force: :cascade do |t|
@@ -113,13 +121,11 @@ ActiveRecord::Schema.define(version: 20151128205603) do
   add_index "students", ["section_id"], name: "index_students_on_section_id"
 
   create_table "ta", force: :cascade do |t|
-    t.integer  "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "section_id"
   end
 
-  add_index "ta", ["profile_id"], name: "index_ta_on_profile_id"
   add_index "ta", ["section_id"], name: "index_ta_on_section_id"
 
 end

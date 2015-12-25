@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  semester: MyString
-  course_id: 
+  semester: Spring 2016
+  course: Calculus 1
 
 two:
-  semester: MyString
-  course_id: 
+  semester: Spring 2016
+  course_id: Linear Algebra

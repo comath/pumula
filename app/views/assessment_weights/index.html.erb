@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Assessment Weights</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assessment_weights.each do |assessment_weight| %>
+      <tr>
+        <td><%= link_to 'Show', assessment_weight %></td>
+        <td><%= link_to 'Edit', edit_assessment_weight_path(assessment_weight) %></td>
+        <td><%= link_to 'Destroy', assessment_weight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Assessment weight', new_assessment_weight_path %>

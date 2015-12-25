@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
+  nature: 
   name: MyString
   course_instance_id: 
   due_date: 2015-11-28 13:28:22
-  act_due_date: 2015-11-28 13:28:22
 
 two:
-  type: 
+  nature: 
   name: MyString
   course_instance_id: 
   due_date: 2015-11-28 13:28:22
-  act_due_date: 2015-11-28 13:28:22

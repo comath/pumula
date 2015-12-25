@@ -1,0 +1,45 @@
+                                      Prefix Verb   URI Pattern                                                                                                                     Controller#Action
+                                        root GET    /                                                                                                                               course_instances#index
+ course_instance_section_student_new_attempt GET    /course_instances/:course_instance_id/sections/:section_id/students/:student_id/sa/:assignment_id/new(.:format)                 student_attempts#new
+course_instance_section_student_show_attempt GET    /course_instances/:course_instance_id/sections/:section_id/students/:student_id/sa/:assignment_id/:student_attempt_id(.:format) student_attempts#show
+    course_instance_section_student_attempts GET    /course_instances/:course_instance_id/sections/:section_id/students/:student_id/sa/:assignment_id/history(.:format)             student_attempts#index
+            course_instance_section_students GET    /course_instances/:course_instance_id/sections/:section_id/students(.:format)                                                   students#index
+                                             POST   /course_instances/:course_instance_id/sections/:section_id/students(.:format)                                                   students#create
+         new_course_instance_section_student GET    /course_instances/:course_instance_id/sections/:section_id/students/new(.:format)                                               students#new
+        edit_course_instance_section_student GET    /course_instances/:course_instance_id/sections/:section_id/students/:id/edit(.:format)                                          students#edit
+             course_instance_section_student GET    /course_instances/:course_instance_id/sections/:section_id/students/:id(.:format)                                               students#show
+                                             PATCH  /course_instances/:course_instance_id/sections/:section_id/students/:id(.:format)                                               students#update
+                                             PUT    /course_instances/:course_instance_id/sections/:section_id/students/:id(.:format)                                               students#update
+                                             DELETE /course_instances/:course_instance_id/sections/:section_id/students/:id(.:format)                                               students#destroy
+                    course_instance_sections GET    /course_instances/:course_instance_id/sections(.:format)                                                                        sections#index
+                                             POST   /course_instances/:course_instance_id/sections(.:format)                                                                        sections#create
+                 new_course_instance_section GET    /course_instances/:course_instance_id/sections/new(.:format)                                                                    sections#new
+                edit_course_instance_section GET    /course_instances/:course_instance_id/sections/:id/edit(.:format)                                                               sections#edit
+                     course_instance_section GET    /course_instances/:course_instance_id/sections/:id(.:format)                                                                    sections#show
+                                             PATCH  /course_instances/:course_instance_id/sections/:id(.:format)                                                                    sections#update
+                                             PUT    /course_instances/:course_instance_id/sections/:id(.:format)                                                                    sections#update
+                                             DELETE /course_instances/:course_instance_id/sections/:id(.:format)                                                                    sections#destroy
+     course_instance_assigment_problem_index GET    /course_instances/:course_instance_id/assigments/:assigment_id/problem(.:format)                                                problem#index
+                                             POST   /course_instances/:course_instance_id/assigments/:assigment_id/problem(.:format)                                                problem#create
+       new_course_instance_assigment_problem GET    /course_instances/:course_instance_id/assigments/:assigment_id/problem/new(.:format)                                            problem#new
+      edit_course_instance_assigment_problem GET    /course_instances/:course_instance_id/assigments/:assigment_id/problem/:id/edit(.:format)                                       problem#edit
+           course_instance_assigment_problem GET    /course_instances/:course_instance_id/assigments/:assigment_id/problem/:id(.:format)                                            problem#show
+                                             PATCH  /course_instances/:course_instance_id/assigments/:assigment_id/problem/:id(.:format)                                            problem#update
+                                             PUT    /course_instances/:course_instance_id/assigments/:assigment_id/problem/:id(.:format)                                            problem#update
+                                             DELETE /course_instances/:course_instance_id/assigments/:assigment_id/problem/:id(.:format)                                            problem#destroy
+                  course_instance_assigments GET    /course_instances/:course_instance_id/assigments(.:format)                                                                      assigments#index
+                                             POST   /course_instances/:course_instance_id/assigments(.:format)                                                                      assigments#create
+               new_course_instance_assigment GET    /course_instances/:course_instance_id/assigments/new(.:format)                                                                  assigments#new
+              edit_course_instance_assigment GET    /course_instances/:course_instance_id/assigments/:id/edit(.:format)                                                             assigments#edit
+                   course_instance_assigment GET    /course_instances/:course_instance_id/assigments/:id(.:format)                                                                  assigments#show
+                                             PATCH  /course_instances/:course_instance_id/assigments/:id(.:format)                                                                  assigments#update
+                                             PUT    /course_instances/:course_instance_id/assigments/:id(.:format)                                                                  assigments#update
+                                             DELETE /course_instances/:course_instance_id/assigments/:id(.:format)                                                                  assigments#destroy
+                            course_instances GET    /course_instances(.:format)                                                                                                     course_instances#index
+                                             POST   /course_instances(.:format)                                                                                                     course_instances#create
+                         new_course_instance GET    /course_instances/new(.:format)                                                                                                 course_instances#new
+                        edit_course_instance GET    /course_instances/:id/edit(.:format)                                                                                            course_instances#edit
+                             course_instance GET    /course_instances/:id(.:format)                                                                                                 course_instances#show
+                                             PATCH  /course_instances/:id(.:format)                                                                                                 course_instances#update
+                                             PUT    /course_instances/:id(.:format)                                                                                                 course_instances#update
+                                             DELETE /course_instances/:id(.:format)                                                                                                 course_instances#destroy

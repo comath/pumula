@@ -1,0 +1,22 @@
+<%= form_for([@course_instance, @assessment]) do |f| %>
+  <% if @assessment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assessment.errors.count, "error") %> prohibited this assessment from being saved:</h2>
+
+      <ul>
+      <% @assessment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.text_field :name %>
+    <%= f.fields_for :problems do |builder| %>
+      <%= render "problem_fields", :f => builder %>
+    <% end %>
+    <p><%= link_to_add_fields "Add Problem", f, :problems %></p>
+    <%= f.submit %>
+  </div>
+<% end %>
