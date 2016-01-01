@@ -1,4 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_assessment_path(@assessment) %> |
+<p id="name"><%= @assessment.name %></p>
+
+<p id="course"><%= @course_instance.course.name%></p>
+
+<%= link_to 'Edit', edit_course_instance_assessment_path(@course_instance,@assessment) %> |
 <%= link_to 'Back', @course_instance %>

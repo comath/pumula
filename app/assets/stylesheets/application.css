@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+
+.tags {
+	font-size: small;
+	font: ariel, san-serif;
+}

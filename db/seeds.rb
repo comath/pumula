@@ -6,17 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+taglist = %w{differentiation intergration power-rule quotient-rule trigenometric-intergration fields algebra limits limit-sum limit-product completion}
+taglist.map { |e| {name: e} }
 
-tags = %w{differentiation intergration power-rule quotient-rule trigenometric-intergration fields algebra limits limit-sum limit-product}
+taglist.each do |e|
+	Tag.create!(name: e)
+end
 
+tags = Tag.all.reject{|e| e.name == 'completion'}
 
-
-
-tag_list = ""
-
-tags.each{|e| tag_list += " <#{e}>"}
-
-course = Course.create!( name: "Calculus 1", tag_list: tag_list)
+course = Course.create!( name: "Calculus 1", tags: tags)
 
 course_instance = course.course_instances.create!(semester: "Fall 2016")
 
@@ -30,36 +29,39 @@ sections = course_instance.sections.create!([{name: "01"}, {name: "02"}])
 now = Time.now
 ran = Random.new
 
+homework = AssessmentWeight.create!(name: 'Homework', weight: 0.30, course_instance: course_instance)
+exam = AssessmentWeight.create!(name: 'Exam', weight: 0.70, course_instance: course_instance)
+
+
 5.times do |index|
 	date = now + ran.rand(1...60)
-	course_instance.assessments.create!(due_date: date, nature: "homework", name: "Homework #{index}" )
+	course_instance.assessments.create!(due_date: date, assessment_weight: homework, name: "Homework #{index}" )
 end
 
 2.times do |index|
 	date = now + ran.rand(30...65)
-	course_instance.assessments.create!(due_date: date, nature: "exam", name: "Exam #{index}" )
+	course_instance.assessments.create!(due_date: date, assessment_weight: exam, name: "Exam #{index}" )
 end
 
 
-homeworks = Assessment.where(nature: "homework")
+homeworks = Assessment.where(assessment_weight: homework)
 homeworks.each do |hw|
 	5.times do |n| 
-		tagsstr = ""
 		thesetags = tags.sample(2)
-		thesetags.each{ |e| tagsstr += " <#{e}>"}
-		hw.problems.create!(name: "Problem #{n}", points: 5, tags: tagsstr) 
+		problem = hw.problems.create!(name: "Problem #{n}", points: 5)
+		problem.tags = thesetags
 	end
-	hw.problems.create!(name: "Completion", points: 5, tags: "")
+	prob = hw.problems.create!(name: "Completion", points: 5)
+	prob.tags.create!(name: "completion")
 end
 
-exams = Assessment.where(nature: "exam")
+exams = Assessment.where(assessment_weight: exam)
 exams.each do |exam|
 	10.times do |n| 
-		tagsstr = ""
 		thesetags = tags.sample(2)
-		thesetags.each{ |e| tagsstr += " <#{e}>"}
 		points = ran.rand(1...4)*5
-		exam.problems.create!(name: "Problem #{n}", points: points, tags: tagsstr)
+		problem = exam.problems.create!(name: "Problem #{n}", points: points)
+		problem.tags = thesetags
 	end
 end
 

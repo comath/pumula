@@ -1,6 +1,6 @@
 class StudentAttemptsController < ApplicationController
   before_action :set_student_attempt, only: [:show, :edit, :update]
-  before_action :set_course_instance, :set_section, :set_assigment, :set_student
+  before_action :set_course_instance, :set_section, :set_assessment, :set_student
 
   # GET /student_attempts
   # GET /student_attempts.json
@@ -34,8 +34,7 @@ class StudentAttemptsController < ApplicationController
   # POST /student_attempts
   # POST /student_attempts.json
   def create
-    @student_attempt = StudentAttempt.new(student_attempt_params)
-
+      
     respond_to do |format|
       if @student_attempt.save
         format.html { redirect_to @student_attempt, notice: 'Student attempt was successfully created.' }
@@ -95,7 +94,7 @@ class StudentAttemptsController < ApplicationController
       @student=Student.find(params[:student_id])
     end
 
-    def set_assigment
+    def set_assessment
       @assessment=Assessment.find(params[:assessment_id])
     end
 end

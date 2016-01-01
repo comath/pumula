@@ -1,6 +1,7 @@
 class AssessmentsController < ApplicationController
   before_action :set_assessment, only: [:show, :edit, :update, :destroy]
-  before_action :clean_params, only: [:create, :update]
+  before_action :clean_params, only: [:update,:create]
+  before_action :set_assessment_weight, only: [:new]
   before_action :set_course_instance
 
   # GET /assessments
@@ -16,8 +17,16 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/new
   def new
-    @assessment = Assessment.new
-    problem = @assessment.problems.build
+    if params[:assessment_weight_id]
+      @hastype = true
+      @assessment_weight = AssessmentWeight.find(params[:assessment_weight_id])
+      @assessment = Assessment.new(assessment_weight: @assessment_weight, name: @assessment_weight.name)
+      problem = @assessment.problems.build
+    else
+      @hastype = false
+      @assessment = Assessment.new
+      problem = @assessment.problems.build
+    end
   end
 
   # GET /assessments/1/edit
@@ -27,13 +36,12 @@ class AssessmentsController < ApplicationController
   # POST /assessments
   # POST /assessments.json
   def create
-
-    @assessment = Assessment.new(name: @new_name, problems_attributes: @new_problems)
+    @assessment = Assessment.new(assessment_weight: @assessment_weight, course_instance: @course_instance, name: @new_name, problems_attributes: @new_problems)
 
     respond_to do |format|
       if @assessment.save
-        format.html { redirect_to @assessment, notice: 'assessment was successfully created.' }
-        format.json { render :show, status: :created, location: @assessment }
+        format.html { redirect_to [@course_instance,@assessment], notice: 'assessment was successfully created.' }
+        format.json { render :show, status: :created, location: [@course_instance,@assessment] }
       else
         format.html { render :new }
         format.json { render json: @assessment.errors, status: :unprocessable_entity }
@@ -46,7 +54,7 @@ class AssessmentsController < ApplicationController
   def update
 
     respond_to do |format|
-      if @assessment.update(name: @new_name, problems_attributes: @new_problems)
+      if @assessment.update(assessment_weight_id: @assessment_weight_id, name: @new_name, problems_attributes: @new_problems)
         format.html { redirect_to @assessment, notice: 'assessment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assessment }
       else
@@ -79,5 +87,15 @@ class AssessmentsController < ApplicationController
 
     def set_course_instance
       @course_instance=CourseInstance.find(params[:course_instance_id])
+    end
+
+    def clean_params
+      @new_name = assessment_params[:name]
+      @new_problems = assessment_params[:problems_attributes].values
+      @assessment_weight_id = assessment_params[:assessment_weight]
+    end
+
+    def set_assessment_weight
+      @assessment_weight=AssessmentWeight.find(params[:assessment_weight_id])
     end
 end

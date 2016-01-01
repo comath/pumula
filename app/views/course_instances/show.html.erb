@@ -2,7 +2,7 @@
 
 <table>
 	<tr>
-		<td><%= link_to "Create Assessment", new_course_instance_assessment_path(@course_instance) %></td>
+		<%= links_to_new_assessments(@course_instance) %>
 		<td>Sections:</td>
 		<% @course_instance.sections.all.each do |sect| %>
 			<td><%= link_to sect.name, course_instance_section_path(@course_instance, sect) %></td>
@@ -25,7 +25,7 @@
 			<tr class=<%= cycle('even', 'odd') %>>
 			<td><%= student.name %></td>
 			<% @course_instance.assessments.each do |assessment| %>
-				<td><%= link_to student.get_latest_attempt(assessment).get_total, course_instance_section_student_new_attempt_path(@course_instance ,student.section, student, assessment) %></td>
+				<td><%= show_and_link_score(@course_instance, student,assessment) %></td>
 			<% end %>
 			</tr>
 		<% end %>

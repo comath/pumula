@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :assessments do
       resources :problem
     end
+    get "assessments/new/:assessment_weight_id", to: "assessments#new", as: "new_weighted_assessment"
   end
 
 

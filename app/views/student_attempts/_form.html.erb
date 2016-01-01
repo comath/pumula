@@ -15,6 +15,11 @@
   
   <%= f.fields_for :problem_attempts do |pa| %>
     <p><%= pa.object.problem.name %>:<%= pa.number_field :score %> out of <%= pa.object.problem.points %> <%= pa.check_box :completed %></p>
+    <div class="tags">
+      <% pa.object.tags.all.each do |e| %> 
+        <%= e.name %>
+      <% end %>
+    </div>
   <% end %>
     <p><%= f.submit %></p>
   </div>

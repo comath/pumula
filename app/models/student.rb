@@ -7,4 +7,5 @@ class Student < ActiveRecord::Base
   def get_latest_attempt(assessment)
   	student_attempts.where(assessment: assessment).order(created_at: :desc).first
   end
+
 end

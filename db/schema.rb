@@ -11,25 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225050459) do
+ActiveRecord::Schema.define(version: 20151230210713) do
 
   create_table "assessment_weights", force: :cascade do |t|
     t.text     "name"
-    t.decimal  "weight",     precision: 8, scale: 2
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.decimal  "weight",             precision: 8, scale: 2
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "course_instance_id"
   end
+
+  add_index "assessment_weights", ["course_instance_id"], name: "index_assessment_weights_on_course_instance_id"
 
   create_table "assessments", force: :cascade do |t|
     t.string   "name"
     t.integer  "course_instance_id"
     t.datetime "due_date"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "assessment_weights_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "assessment_weight_id"
   end
 
-  add_index "assessments", ["assessment_weights_id"], name: "index_assessments_on_assessment_weights_id"
+  add_index "assessments", ["assessment_weight_id"], name: "index_assessments_on_assessment_weight_id"
   add_index "assessments", ["course_instance_id"], name: "index_assessments_on_course_instance_id"
 
   create_table "course_instances", force: :cascade do |t|
@@ -47,6 +50,14 @@ ActiveRecord::Schema.define(version: 20151225050459) do
     t.datetime "updated_at", null: false
     t.string   "name"
   end
+
+  create_table "courses_tags", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "tag_id"
+  end
+
+  add_index "courses_tags", ["course_id"], name: "index_courses_tags_on_course_id"
+  add_index "courses_tags", ["tag_id"], name: "index_courses_tags_on_tag_id"
 
   create_table "instructors", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -72,7 +83,6 @@ ActiveRecord::Schema.define(version: 20151225050459) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "name"
-    t.string   "tags"
     t.integer  "assessment_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
@@ -80,6 +90,14 @@ ActiveRecord::Schema.define(version: 20151225050459) do
   end
 
   add_index "problems", ["assessment_id"], name: "index_problems_on_assessment_id"
+
+  create_table "problems_tags", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "tag_id"
+  end
+
+  add_index "problems_tags", ["problem_id"], name: "index_problems_tags_on_problem_id"
+  add_index "problems_tags", ["tag_id"], name: "index_problems_tags_on_tag_id"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "fname"
@@ -127,5 +145,9 @@ ActiveRecord::Schema.define(version: 20151225050459) do
   end
 
   add_index "ta", ["section_id"], name: "index_ta_on_section_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+  end
 
 end

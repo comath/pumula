@@ -12,6 +12,8 @@
   <% end %>
 
   <div class="actions">
+    <%= select("post", "assessment_weight_id", AssessmentWeight.all.collect {|w| [ w.name, w.id ] }) %>
+    <%= f.label :name, "Name: " %>
     <%= f.text_field :name %>
     <%= f.fields_for :problems do |builder| %>
       <%= render "problem_fields", :f => builder %>
