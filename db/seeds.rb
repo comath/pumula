@@ -21,10 +21,14 @@ course_instance = course.course_instances.create!(semester: "Fall 2016")
 
 sections = course_instance.sections.create!([{name: "01"}, {name: "02"}])
 
-30.times  do |index|
+
+names = File.new()
+names.each do |name|
 	section = sections.sample
-	section.students.create!(name: "Student #{index}")
-	end
+	name.to_s
+	section.students.create!(name: name)
+end
+
 
 now = Time.now
 ran = Random.new

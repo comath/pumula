@@ -25,7 +25,7 @@ module ApplicationHelper
     returnlinks.html_safe
   end
 
-  def show_and_link_score(course_instance, student,assessment)
+  def show_and_link_score(course_instance, student, assessment)
     if student.get_latest_attempt(assessment)
       link_to student.get_latest_attempt(assessment).get_total, course_instance_section_student_new_attempt_path(course_instance ,student.section, student, assessment)
     else
